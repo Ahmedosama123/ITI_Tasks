@@ -4,38 +4,24 @@
 #include <algorithm>
 int main(void)
 {
-    std::vector<int> v{1, 2, 5, 4, 7, 8, 9, 12};
+    std::vector<int> v{1, 2, 5, 4, 7, 8, 9,3};
     int k = 10;
-    for (int item : v)
+    int r = 0, l = 0;
+    int sum = 0;
+    int min_len = v.size()+1;
+    while (r < v.size())
     {
-        if (item == k)
+        sum+=v[r];
+        while(sum >= k)
         {
-            std::cout << item << std::endl;
-            return 0;
+            if(min_len > r-l+1){
+                min_len = r-l+1;
+            }
+            sum = sum - v[l];
+            l++;
         }
+        r++;
     }
-    std::vector<int>::iterator f;
-    std::vector<int>::iterator s;
-    f = v.begin();
-    s = v.begin();
-    int count = 0;
-    int min_count = v.size()+1;
-    int sum = *s;
-    while (f < v.end())
-    {
-        while (sum >= k)
-        {
-            count = f - s + 1;
-            min_count = __min(min_count, count);
-            sum -= *s;
-            s++;
-            count = f - s + 1;
-        }
-        f++;
-        sum+=*f;
-    }
-    for(s;s<f;s++){
-        std::cout << *s << " ";
-    }
+    std::cout<<"minimum_length = " << min_len;
     return 0;
 }
